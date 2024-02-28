@@ -38,7 +38,7 @@ class LinkedList {
         return null;
     }
 
-    // Метод для вставки элемента после заданного узла
+    // Метод для вставки элемента после заданного элемента
     insertAfter(value, data) {
         const newNode = new Node(data);
         const targetNode = this.find(value);
@@ -73,11 +73,11 @@ class LinkedList {
         return false; // Элемент не найден
     }
 
-    // Метод для изменения значения узла
+    // Метод для изменения значения элемента
     update(oldData, newData) {
         const nodeToUpdate = this.find(oldData);
         if (!nodeToUpdate) {
-            return false; // Узел для обновления не найден
+            return false; // Элемент для обновления не найден
         }
         nodeToUpdate.data = newData;
         return true;
@@ -89,25 +89,43 @@ class LinkedList {
     }
 }
 
+function printListInOneLine(linkedList) {
+    let result = "";
+    let current = linkedList.head;
+    while (current) {
+        result += current.data + " ";
+        current = current.next;
+    }
+    console.log(result.trim()); // Вывод списка в одну строку без начальных и конечных пробелов
+}
+
 // test:
 
 const list = new LinkedList();
-list.append(1);
-list.append(2);
 list.append(3);
+list.append(2);
+list.append(8);
 list.append(4);
+list.append(1);
+list.append(6);
 
-console.log(list.size()); // 4
+console.log(list.size()); // 6
 
-console.log(list.find(3)); // Node { data: 3, next: Node { data: 4, next: null } }
+console.log(list.find(6)); // Node { data: 6, next: null }
 
 list.insertAfter(2, 5);
-console.log(list.size()); // 5
+console.log(list.size()); // 7
 
-console.log(list.find(5)); // Node { data: 5, next: Node { data: 3, next: Node { data: 4, next: null } } }
+printListInOneLine(list);
+
+console.log(list.find(5)); // Node { data: 5, next: Node { data: 8, next: Node { data: 4, next: [Node] } } }
 
 list.remove(3);
-console.log(list.size()); // 4
+console.log(list.size()); // 6 
 
-list.update(2, 6);
-console.log(list.find(6)); // Node { data: 6, next: Node { data: 5, next: Node { data: 3, next: Node { data: 4, next: null } } } }
+printListInOneLine(list);
+
+list.update(2, 228);
+console.log(list.find(6)); // Node { data: 6, next: null }
+
+printListInOneLine(list);
