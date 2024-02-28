@@ -12,7 +12,6 @@ class LinkedList {
     }
 
     // Метод для вставки элемента в конец списка
-
     append(data) {
         const newNode = new Node(data);
         if (!this.head) {
@@ -28,7 +27,6 @@ class LinkedList {
     }
 
     // Метод для поиска элемента по значению
-
     find(data) {
         let current = this.head;
         while (current) {
@@ -41,7 +39,6 @@ class LinkedList {
     }
 
     // Метод для вставки элемента после заданного узла
-
     insertAfter(value, data) {
         const newNode = new Node(data);
         const targetNode = this.find(value);
@@ -55,7 +52,6 @@ class LinkedList {
     }
 
     // Метод для удаления элемента из списка
-
     remove(data) {
         if (!this.head) {
             return false; // Список пуст
@@ -78,7 +74,6 @@ class LinkedList {
     }
 
     // Метод для изменения значения узла
-
     update(oldData, newData) {
         const nodeToUpdate = this.find(oldData);
         if (!nodeToUpdate) {
@@ -89,12 +84,14 @@ class LinkedList {
     }
 
     // Метод для определения длины списка
-
     size() {
         return this.length;
     }
 }
-const list = new DoublyLinkedList();
+
+// test:
+
+const list = new LinkedList();
 list.append(1);
 list.append(2);
 list.append(3);
@@ -102,15 +99,15 @@ list.append(4);
 
 console.log(list.size()); // 4
 
-console.log(list.find(3)); // Node { data: 3, prev: Node { data: 2, ... }, next: Node { data: 4, ... } }
+console.log(list.find(3)); // Node { data: 3, next: Node { data: 4, next: null } }
 
 list.insertAfter(2, 5);
 console.log(list.size()); // 5
 
-console.log(list.find(5)); // Node { data: 5, prev: Node { data: 2, ... }, next: Node { data: 3, ... } }
+console.log(list.find(5)); // Node { data: 5, next: Node { data: 3, next: Node { data: 4, next: null } } }
 
 list.remove(3);
 console.log(list.size()); // 4
 
 list.update(2, 6);
-console.log(list.find(6)); // Node { data: 6, prev: null, next: Node { data: 5, ... } }
+console.log(list.find(6)); // Node { data: 6, next: Node { data: 5, next: Node { data: 3, next: Node { data: 4, next: null } } } }
