@@ -1,38 +1,31 @@
-class ListNode<T> {
-    data: T;
-    next: ListNode<T> | null;
-
-    constructor(data: T) {
+var ListNode = /** @class */ (function () {
+    function ListNode(data) {
         this.data = data;
         this.next = null;
     }
-}
-
-class LinkedList<T> {
-    head: ListNode<T> | null;
-    length: number;
-
-    constructor() {
+    return ListNode;
+}());
+var LinkedList = /** @class */ (function () {
+    function LinkedList() {
         this.head = null;
         this.length = 0;
     }
-
-    append(data: T): void {
-        const newNode = new ListNode(data);
+    LinkedList.prototype.append = function (data) {
+        var newNode = new ListNode(data);
         if (!this.head) {
             this.head = newNode;
-        } else {
-            let current = this.head;
+        }
+        else {
+            var current = this.head;
             while (current.next) {
                 current = current.next;
             }
             current.next = newNode;
         }
         this.length++;
-    }
-
-    find(data: T): ListNode<T> | null {
-        let current = this.head;
+    };
+    LinkedList.prototype.find = function (data) {
+        var current = this.head;
         while (current) {
             if (current.data === data) {
                 return current;
@@ -40,11 +33,10 @@ class LinkedList<T> {
             current = current.next;
         }
         return null;
-    }
-
-    insertAfter(value: T, data: T): boolean {
-        const newNode = new ListNode(data);
-        const targetNode = this.find(value);
+    };
+    LinkedList.prototype.insertAfter = function (value, data) {
+        var newNode = new ListNode(data);
+        var targetNode = this.find(value);
         if (!targetNode) {
             return false;
         }
@@ -52,9 +44,8 @@ class LinkedList<T> {
         targetNode.next = newNode;
         this.length++;
         return true;
-    }
-
-    remove(data: T): boolean {
+    };
+    LinkedList.prototype.remove = function (data) {
         if (!this.head) {
             return false;
         }
@@ -63,7 +54,7 @@ class LinkedList<T> {
             this.length--;
             return true;
         }
-        let current = this.head;
+        var current = this.head;
         while (current.next) {
             if (current.next.data === data) {
                 current.next = current.next.next;
@@ -73,59 +64,46 @@ class LinkedList<T> {
             current = current.next;
         }
         return false;
-    }
-
-    update(oldData: T, newData: T): boolean {
-        const nodeToUpdate = this.find(oldData);
+    };
+    LinkedList.prototype.update = function (oldData, newData) {
+        var nodeToUpdate = this.find(oldData);
         if (!nodeToUpdate) {
             return false;
         }
         nodeToUpdate.data = newData;
         return true;
-    }
-
-    size(): number {
+    };
+    LinkedList.prototype.size = function () {
         return this.length;
-    }
-}
-
-function printListInOneLine<T>(linkedList: LinkedList<T>): void {
-    let result = "";
-    let current = linkedList.head;
+    };
+    return LinkedList;
+}());
+function printListInOneLine(linkedList) {
+    var result = "";
+    var current = linkedList.head;
     while (current) {
         result += current.data + " ";
         current = current.next;
     }
     console.log(result.trim());
 }
-
 // Тесты
-
-const list = new LinkedList<number>();
+var list = new LinkedList();
 list.append(3);
 list.append(2);
 list.append(8);
 list.append(4);
 list.append(1);
 list.append(6);
-
 console.log(list.size()); // 6
-
 console.log(list.find(6)); // Node { data: 6, next: null }
-
 list.insertAfter(2, 5);
 console.log(list.size()); // 7
-
 printListInOneLine(list);
-
 console.log(list.find(5)); // Node { data: 5, next: Node { data: 8, next: Node { data: 4, next: [Node] } } }
-
 list.remove(3);
 console.log(list.size()); // 6 
-
 printListInOneLine(list);
-
 list.update(2, 228);
 console.log(list.find(6)); // Node { data: 6, next: null }
-
 printListInOneLine(list);
